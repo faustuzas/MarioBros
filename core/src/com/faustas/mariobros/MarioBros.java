@@ -24,9 +24,8 @@ public class MarioBros extends Game {
 		playFirstLevel();
 	}
 
-
 	public void playFirstLevel() {
-        currentLevel = 1;
+        currentLevel = 3;
         hud.reset();
         playLevel();
     }
