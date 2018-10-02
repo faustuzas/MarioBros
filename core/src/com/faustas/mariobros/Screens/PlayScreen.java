@@ -215,7 +215,6 @@ public class PlayScreen implements Screen {
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
-        hud.dispose();
     }
 
     public Hud getHud(){ return hud; }

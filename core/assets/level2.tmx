@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextobjectid="127">
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextobjectid="136">
  <tileset firstgid="1" name="tileset_gutter" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924" columns="33">
   <image source="tileset_gutter.png" width="594" height="504"/>
  </tileset>
@@ -10,7 +10,7 @@
  </layer>
  <layer name="Graphic Layer" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmE1OQyEQx+nrNTyY7eIlRushXHZvD+DHFfQA6l63prteQ/fOSyCZUODxMTDw5Jf80wTeo8Mwf6AVotPpdPh5GIR4BD0N3JF0aqHXRDu8wRq9gz4ca/VcLpwzctRSK2PmxrauPjXBSYu5nmg1bhs++wJVLeHvwmPuB/MzodRe80uidK6pfNdr5P/R6p7NHfdJigIu3y3t3kvFPjAmVx5z97W6Z3PHfZSi5EKqhK8o/XMXMQb3+umEenZp3MD8d6DbivMwSsXyjaT8i9tagso/k3eVYrmEdzegrecYozhfyxLneYsex3kZLfHr7TXfjVL4QvqRwm1z5DhX71dCHFYZBvYAezfVw6nE7Ect+jEUnBd1xm406ftmbXcjKpRvp89fKdzGwQt49zXCv6Fnno7Ju9we5sI159J9Hfv9QfkW+/eI2igIPU9j/ZuCy7s+HvbdO6jvFjnuKq45l+7LCffv4+s1xADareeftd0fTP7FbRTM+fFKi8n0vHom9Yw14eNdqvqi3puox3PNuXSfItVnpv8WZt/J6GnfsX38/Ymk/IvbFCE1Hlr/JbxDFX9qXDXEwJUnrjnVmIfSMf4BcVQDRg==
+   eJztmE1OQyEQx2l7DQ9mu3iJ0XoIl+7tAfy4gh5A3evWdOc1dO+8BJIJ5ZuBgSe/5J8m8B4dhvkDrRCDwWDAz/1aiAfQ45o7kkErjJroh1dYozfQu2OtnuqFc0KJWuplzNLY1jWkJjjpMdczvcZtI2RfoKol/F1qzFupmHhstF7zS6J2rql8N2rk/9Hrns0d97cUBVy+W9q9lwr93PXhymPpvl73bO64j1KUnEnV8BWlf24SxuBeP51Yzy6NK5j7HnTdcA4mqVS+kJR/cVtPUPln9q5SKufw7ha0CxxjEqdrWfo879XfOC+TJX69veW7UQ6fSD9SuM1HiXP1biXEYVVg4ACwd3M9nEvKftSrJ2PAeVFn7FaTvm+2djeiQvl2/vyVwm0cPIN3XxL8G3vm6Zi8y+1hLlxzrt03sN8flG+xf4+ojYLY8zTVvzm4vBvi4dC9g/puUeKu4ppz7b6ScP8+vtxADKD9xv+s7f5g8i9uo8DnxwstJtPz6pncM9ZEiHep6ot6b6IezzXn2n2KXJ+Z/lvwvlPQ06Fjh/j7A0n5F7cpYmo8tv5reIcq/ty4WoiBK09cc2oxD7Vj/APkLgUb
   </data>
  </layer>
  <objectgroup name="Ground">
@@ -74,6 +74,11 @@
   <object id="65" x="3664" y="192" width="16" height="16"/>
   <object id="122" x="1312" y="192" width="192" height="16"/>
   <object id="123" x="1504" y="192" width="160" height="16"/>
+  <object id="127" x="1712" y="128" width="16" height="16"/>
+  <object id="128" x="1760" y="96" width="16" height="16"/>
+  <object id="129" x="1808" y="80" width="16" height="16"/>
+  <object id="130" x="1824" y="48" width="16" height="16"/>
+  <object id="132" x="1872" y="112" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="Pipes">
   <object id="66" x="240" y="160" width="32" height="32"/>

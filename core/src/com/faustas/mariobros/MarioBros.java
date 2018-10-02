@@ -44,7 +44,8 @@ public class MarioBros extends Game {
 	public void dispose() {
 		super.dispose();
 		manager.dispose();
-		batch.dispose();
+        hud.dispose();
+        batch.dispose();
 	}
 
 	@Override
