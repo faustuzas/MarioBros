@@ -25,6 +25,7 @@ public class Hud implements Disposable{
 
     //Scene2D widgets
     private Label countdownLabel;
+    private Label levelLabel;
     private static Label scoreLabel;
 
     public Hud(SpriteBatch sb){
@@ -49,8 +50,8 @@ public class Hud implements Disposable{
         //define our labels using the String, and a Label style consisting of a font and color
         countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel =new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        Label levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Label marioLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
@@ -66,7 +67,20 @@ public class Hud implements Disposable{
 
         //add our table to the stage
         stage.addActor(table);
+    }
 
+    public void nextLevel(int level) {
+        levelLabel.setText(String.format("1-%d", level));
+        worldTimer = 300;
+        countdownLabel.setText(String.format("%03d", worldTimer));
+    }
+
+    public void reset() {
+        worldTimer = 300;
+        score = 0;
+        levelLabel.setText("1-1");
+        countdownLabel.setText(String.format("%03d", worldTimer));
+        scoreLabel.setText(String.format("%06d", score));
     }
 
     public void update(float dt){
