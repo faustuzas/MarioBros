@@ -5,8 +5,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.faustas.mariobros.Scenes.Hud;
-import com.faustas.mariobros.Screens.PlayScreen;
+import com.faustas.mariobros.scenes.Hud;
+import com.faustas.mariobros.screens.PlayScreen;
 
 public class MarioBros extends Game {
     public SpriteBatch batch;
@@ -25,7 +25,7 @@ public class MarioBros extends Game {
 	}
 
 	public void playFirstLevel() {
-        currentLevel = 3;
+        currentLevel = 1;
         hud.reset();
         playLevel();
     }
