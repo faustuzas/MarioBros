@@ -31,23 +31,57 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java"
-
+    apply plugin: 'antlr'
 
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        antlr "org.antlr:antlr4:4.3"
     }
 }
 
 project(":core") {
     apply plugin: "java"
-
+    apply plugin: 'antlr'
+    apply plugin: 'idea'
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        antlr "org.antlr:antlr4:4.3"
+    }
+
+    generateGrammarSource {
+        arguments = ['-visitor', '-package', 'com.faustas.mariobros.generated']
+        outputDirectory = file("${project.buildDir}/generated-src/main/java/")
+    }
+
+    generateGrammarSource << {
+        copy {
+            from "${project.buildDir}/generated-src/main/java/"
+            into "src/com/faustas/mariobros/generated/"
+        }
+    }
+
+    compileJava.dependsOn generateGrammarSource
+    compileJava {
+        source = ["${project.buildDir}/generated-src/main/java", 'src/main/java']
+    }
+
+    // when cleaning, remove the generated sources too
+    task removeGeneratedSource(type: Delete) {
+        delete 'src/generated/'
+    }
+    clean.dependsOn removeGeneratedSource
+
+    // mark the generated source as such for IntelliJ IDEA
+    sourceSets.main.java.srcDirs += file("src/com/faustas/mariobros/generated/")
+    idea {
+        module {
+            generatedSourceDirs += file('src/com/faustas/mariobros/generated/')
+        }
     }
 }
 

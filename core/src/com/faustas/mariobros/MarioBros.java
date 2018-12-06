@@ -5,8 +5,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.faustas.mariobros.language.LanguageThread;
 import com.faustas.mariobros.scenes.Hud;
 import com.faustas.mariobros.screens.PlayScreen;
+
+import java.io.IOException;
 
 public class MarioBros extends Game {
     public SpriteBatch batch;
@@ -14,9 +17,14 @@ public class MarioBros extends Game {
     private int currentLevel = 1;
 	public static AssetManager manager;
 
+	private LanguageThread languageThread = new LanguageThread();
+	private Thread runningThread;
+
     @Override
 	public void create () {
-		batch = new SpriteBatch();
+        runningThread = languageThread.start();
+
+        batch = new SpriteBatch();
 		hud = new Hud(batch);
 
 		setUpAssetsManager();
@@ -47,7 +55,14 @@ public class MarioBros extends Game {
 		manager.dispose();
         hud.dispose();
         batch.dispose();
-	}
+
+        try {
+            languageThread.stop();
+            runningThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 	@Override
 	public void render () {

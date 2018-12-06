@@ -1,0 +1,10 @@
+n = 9;
+
+while n > 0 {
+
+  sleep 300;
+  go_right 3;
+  jump;
+
+  n = n - 1;
+}
