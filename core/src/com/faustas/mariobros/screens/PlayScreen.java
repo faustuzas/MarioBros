@@ -17,14 +17,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.faustas.mariobros.MarioBros;
-import com.faustas.mariobros.events.PlayerFireEvent;
-import com.faustas.mariobros.events.PlayerGoLeftEvent;
-import com.faustas.mariobros.events.PlayerGoRightEvent;
-import com.faustas.mariobros.events.PlayerJumpEvent;
-import com.faustas.mariobros.handlers.PlayerFireEventHandler;
-import com.faustas.mariobros.handlers.PlayerGoLeftEventHandler;
-import com.faustas.mariobros.handlers.PlayerGoRightEventHandler;
-import com.faustas.mariobros.handlers.PlayerJumpEventHandler;
+import com.faustas.mariobros.events.*;
+import com.faustas.mariobros.handlers.*;
 import com.faustas.mariobros.scenes.Hud;
 import com.faustas.mariobros.sprites.Enemies.Enemy;
 import com.faustas.mariobros.sprites.Items.Item;
@@ -100,6 +94,8 @@ public class PlayScreen implements Screen {
 
         //create mario in our game world
         player = new Mario(this);
+
+        eventDispatcher.registerHandler(RunCommandsEvent.class, new RunCommandsEventHandler());
 
         eventDispatcher.registerHandler(PlayerGoLeftEvent.class, new PlayerGoLeftEventHandler(player));
         eventDispatcher.registerHandler(PlayerGoRightEvent.class, new PlayerGoRightEventHandler(player));
@@ -211,8 +207,8 @@ public class PlayScreen implements Screen {
         hud.stage.draw();
 
         if (toNextLevel) {
-            game.playNextLevel();
             dispose();
+            game.playNextLevel();
         }
 
         if(gameOver()){

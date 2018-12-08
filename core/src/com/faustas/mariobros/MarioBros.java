@@ -5,11 +5,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.faustas.mariobros.events.RunCommandsEvent;
-import com.faustas.mariobros.handlers.RunCommandsEventHandler;
 import com.faustas.mariobros.scenes.Hud;
 import com.faustas.mariobros.screens.PlayScreen;
-import com.faustas.mariobros.tools.EventDispatcher;
 
 public class MarioBros extends Game {
     public SpriteBatch batch;
@@ -21,8 +18,6 @@ public class MarioBros extends Game {
 	public void create () {
         batch = new SpriteBatch();
 		hud = new Hud(batch);
-
-        EventDispatcher.getInstance().registerHandler(RunCommandsEvent.class, new RunCommandsEventHandler());
 
 		setUpAssetsManager();
 
