@@ -102,6 +102,13 @@ public interface MarioLangVisitor<T> extends ParseTreeVisitor<T> {
 	T visitWhile_stat(@NotNull MarioLangParser.While_statContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link MarioLangParser#fire}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFire(@NotNull MarioLangParser.FireContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link MarioLangParser#block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

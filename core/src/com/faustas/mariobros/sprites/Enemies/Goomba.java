@@ -66,6 +66,7 @@ public class Goomba extends Enemy {
                 Bits.BRICK_BIT |
                 Bits.ENEMY_BIT |
                 Bits.OBJECT_BIT |
+                Bits.FIREBALL_BIT |
                 Bits.MARIO_BIT;
 
         fdef.shape = shape;
@@ -104,5 +105,11 @@ public class Goomba extends Enemy {
             setToDestroy = true;
         else
             reverseVelocity(true, false);
+    }
+
+    @Override
+    public void hitByFireball() {
+        MarioBros.manager.get("audio/sounds/firehit.wav", Sound.class).play();
+        setToDestroy = true;
     }
 }

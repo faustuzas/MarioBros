@@ -17,6 +17,7 @@ stat
  | jump
  | go_left
  | go_right
+ | fire
  | OTHER {System.err.println("unknown char: " + $OTHER.text);}
  ;
 
@@ -59,6 +60,10 @@ go_left
 
 go_right
  : GO_RIGHT expr SCOL
+ ;
+
+fire
+ : FIRE SCOL
  ;
 
 expr
@@ -117,6 +122,7 @@ SLEEP : 'sleep';
 JUMP : 'jump';
 GO_RIGHT : 'go_right';
 GO_LEFT : 'go_left';
+FIRE : 'fire';
 
 ID
  : [a-zA-Z_] [a-zA-Z_0-9]*

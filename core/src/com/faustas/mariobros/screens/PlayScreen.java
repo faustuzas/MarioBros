@@ -17,9 +17,11 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.faustas.mariobros.MarioBros;
+import com.faustas.mariobros.events.PlayerFireEvent;
 import com.faustas.mariobros.events.PlayerGoLeftEvent;
 import com.faustas.mariobros.events.PlayerGoRightEvent;
 import com.faustas.mariobros.events.PlayerJumpEvent;
+import com.faustas.mariobros.handlers.PlayerFireEventHandler;
 import com.faustas.mariobros.handlers.PlayerGoLeftEventHandler;
 import com.faustas.mariobros.handlers.PlayerGoRightEventHandler;
 import com.faustas.mariobros.handlers.PlayerJumpEventHandler;
@@ -31,7 +33,7 @@ import com.faustas.mariobros.sprites.Items.Mushroom;
 import com.faustas.mariobros.sprites.Mario;
 import com.faustas.mariobros.tools.B2WorldCreator;
 import com.faustas.mariobros.tools.Config;
-import com.faustas.mariobros.tools.PlayerEventDispatcher;
+import com.faustas.mariobros.tools.EventDispatcher;
 import com.faustas.mariobros.tools.WorldContactListener;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -67,7 +69,7 @@ public class PlayScreen implements Screen {
     private Array<Item> items;
     private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
-    private PlayerEventDispatcher eventDispatcher = PlayerEventDispatcher.getInstance();
+    private EventDispatcher eventDispatcher = EventDispatcher.getInstance();
 
     public PlayScreen(MarioBros game, Hud hud, String mapName){
         this.game = game;
@@ -102,6 +104,7 @@ public class PlayScreen implements Screen {
         eventDispatcher.registerHandler(PlayerGoLeftEvent.class, new PlayerGoLeftEventHandler(player));
         eventDispatcher.registerHandler(PlayerGoRightEvent.class, new PlayerGoRightEventHandler(player));
         eventDispatcher.registerHandler(PlayerJumpEvent.class, new PlayerJumpEventHandler(player));
+        eventDispatcher.registerHandler(PlayerFireEvent.class, new PlayerFireEventHandler(player));
 
         world.setContactListener(new WorldContactListener());
 
@@ -132,7 +135,6 @@ public class PlayScreen implements Screen {
     }
 
     void handleInput(float dt){
-        //control our player using immediate impulses
         if(player.currentState != Mario.State.DEAD) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
                 eventDispatcher.dispatch(new PlayerJumpEvent());
@@ -140,8 +142,9 @@ public class PlayScreen implements Screen {
                 eventDispatcher.dispatch(new PlayerGoRightEvent());
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2)
                 eventDispatcher.dispatch(new PlayerGoLeftEvent());
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-                player.fire();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.F))  {
+                eventDispatcher.dispatch(new PlayerFireEvent());
+            }
         }
 
     }

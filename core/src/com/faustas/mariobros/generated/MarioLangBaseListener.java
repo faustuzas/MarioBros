@@ -173,6 +173,19 @@ public class MarioLangBaseListener implements MarioLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFire(@NotNull MarioLangParser.FireContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFire(@NotNull MarioLangParser.FireContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBlock(@NotNull MarioLangParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}

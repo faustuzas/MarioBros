@@ -1,5 +1,6 @@
 package com.faustas.mariobros.sprites.Enemies;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
+import com.faustas.mariobros.MarioBros;
 import com.faustas.mariobros.screens.PlayScreen;
 import com.faustas.mariobros.sprites.Mario;
 import com.faustas.mariobros.tools.Bits;
@@ -54,6 +56,7 @@ public class Turtle extends Enemy {
                 Bits.BRICK_BIT |
                 Bits.ENEMY_BIT |
                 Bits.OBJECT_BIT |
+                Bits.FIREBALL_BIT |
                 Bits.MARIO_BIT;
 
         fdef.shape = shape;
@@ -121,8 +124,7 @@ public class Turtle extends Enemy {
             else
                 velocity.x = 2;
             currentState = State.MOVING_SHELL;
-        }
-        else {
+        } else {
             currentState = State.STANDING_SHELL;
             velocity.x = 0;
         }
@@ -131,6 +133,16 @@ public class Turtle extends Enemy {
     @Override
     public void hitByEnemy(Enemy enemy) {
         reverseVelocity(true, false);
+    }
+
+    @Override
+    public void hitByFireball() {
+        MarioBros.manager.get("audio/sounds/firehit.wav", Sound.class).play();
+        if(currentState == State.STANDING_SHELL) {
+            currentState = State.MOVING_SHELL;
+        } else {
+            currentState = State.STANDING_SHELL;
+        }
     }
 
     public void kick(int direction){

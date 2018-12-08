@@ -20,24 +20,24 @@ public class MarioLangParser extends Parser {
 		OR=1, AND=2, EQ=3, NEQ=4, GT=5, LT=6, GTEQ=7, LTEQ=8, PLUS=9, MINUS=10, 
 		MULT=11, DIV=12, MOD=13, POW=14, NOT=15, SCOL=16, ASSIGN=17, OPAR=18, 
 		CPAR=19, OBRACE=20, CBRACE=21, TRUE=22, FALSE=23, NIL=24, IF=25, ELSE=26, 
-		WHILE=27, LOG=28, SLEEP=29, JUMP=30, GO_RIGHT=31, GO_LEFT=32, ID=33, INT=34, 
-		FLOAT=35, STRING=36, COMMENT=37, SPACE=38, OTHER=39;
+		WHILE=27, LOG=28, SLEEP=29, JUMP=30, GO_RIGHT=31, GO_LEFT=32, FIRE=33, 
+		ID=34, INT=35, FLOAT=36, STRING=37, COMMENT=38, SPACE=39, OTHER=40;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'||'", "'&&'", "'=='", "'!='", "'>'", "'<'", "'>='", "'<='", 
 		"'+'", "'-'", "'*'", "'/'", "'%'", "'^'", "'!'", "';'", "'='", "'('", 
 		"')'", "'{'", "'}'", "'true'", "'false'", "'nil'", "'if'", "'else'", "'while'", 
-		"'log'", "'sleep'", "'jump'", "'go_right'", "'go_left'", "ID", "INT", 
-		"FLOAT", "STRING", "COMMENT", "SPACE", "OTHER"
+		"'log'", "'sleep'", "'jump'", "'go_right'", "'go_left'", "'fire'", "ID", 
+		"INT", "FLOAT", "STRING", "COMMENT", "SPACE", "OTHER"
 	};
 	public static final int
 		RULE_parse = 0, RULE_block = 1, RULE_stat = 2, RULE_assignment = 3, RULE_if_stat = 4, 
 		RULE_condition_block = 5, RULE_stat_block = 6, RULE_while_stat = 7, RULE_log = 8, 
 		RULE_sleep = 9, RULE_jump = 10, RULE_go_left = 11, RULE_go_right = 12, 
-		RULE_expr = 13, RULE_atom = 14;
+		RULE_fire = 13, RULE_expr = 14, RULE_atom = 15;
 	public static final String[] ruleNames = {
 		"parse", "block", "stat", "assignment", "if_stat", "condition_block", 
 		"stat_block", "while_stat", "log", "sleep", "jump", "go_left", "go_right", 
-		"expr", "atom"
+		"fire", "expr", "atom"
 	};
 
 	@Override
@@ -89,8 +89,8 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(30); block();
-			setState(31); match(EOF);
+			setState(32); block();
+			setState(33); match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -137,16 +137,16 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
+			setState(38);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << LOG) | (1L << SLEEP) | (1L << JUMP) | (1L << GO_RIGHT) | (1L << GO_LEFT) | (1L << ID) | (1L << OTHER))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IF) | (1L << WHILE) | (1L << LOG) | (1L << SLEEP) | (1L << JUMP) | (1L << GO_RIGHT) | (1L << GO_LEFT) | (1L << FIRE) | (1L << ID) | (1L << OTHER))) != 0)) {
 				{
 				{
-				setState(33); stat();
+				setState(35); stat();
 				}
 				}
-				setState(38);
+				setState(40);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -187,6 +187,9 @@ public class MarioLangParser extends Parser {
 		public JumpContext jump() {
 			return getRuleContext(JumpContext.class,0);
 		}
+		public FireContext fire() {
+			return getRuleContext(FireContext.class,0);
+		}
 		public Go_leftContext go_left() {
 			return getRuleContext(Go_leftContext.class,0);
 		}
@@ -213,60 +216,66 @@ public class MarioLangParser extends Parser {
 		StatContext _localctx = new StatContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_stat);
 		try {
-			setState(49);
+			setState(52);
 			switch (_input.LA(1)) {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(39); assignment();
+				setState(41); assignment();
 				}
 				break;
 			case IF:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(40); if_stat();
+				setState(42); if_stat();
 				}
 				break;
 			case WHILE:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(41); while_stat();
+				setState(43); while_stat();
 				}
 				break;
 			case LOG:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(42); log();
+				setState(44); log();
 				}
 				break;
 			case SLEEP:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(43); sleep();
+				setState(45); sleep();
 				}
 				break;
 			case JUMP:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(44); jump();
+				setState(46); jump();
 				}
 				break;
 			case GO_LEFT:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(45); go_left();
+				setState(47); go_left();
 				}
 				break;
 			case GO_RIGHT:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(46); go_right();
+				setState(48); go_right();
+				}
+				break;
+			case FIRE:
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(49); fire();
 				}
 				break;
 			case OTHER:
-				enterOuterAlt(_localctx, 9);
+				enterOuterAlt(_localctx, 10);
 				{
-				setState(47); ((StatContext)_localctx).OTHER = match(OTHER);
+				setState(50); ((StatContext)_localctx).OTHER = match(OTHER);
 				System.err.println("unknown char: " + (((StatContext)_localctx).OTHER!=null?((StatContext)_localctx).OTHER.getText():null));
 				}
 				break;
@@ -317,10 +326,10 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(51); match(ID);
-			setState(52); match(ASSIGN);
-			setState(53); expr(0);
-			setState(54); match(SCOL);
+			setState(54); match(ID);
+			setState(55); match(ASSIGN);
+			setState(56); expr(0);
+			setState(57); match(SCOL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -378,31 +387,31 @@ public class MarioLangParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56); match(IF);
-			setState(57); condition_block();
-			setState(63);
+			setState(59); match(IF);
+			setState(60); condition_block();
+			setState(66);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(58); match(ELSE);
-					setState(59); match(IF);
-					setState(60); condition_block();
+					setState(61); match(ELSE);
+					setState(62); match(IF);
+					setState(63); condition_block();
 					}
 					} 
 				}
-				setState(65);
+				setState(68);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
-			setState(68);
+			setState(71);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				{
-				setState(66); match(ELSE);
-				setState(67); stat_block();
+				setState(69); match(ELSE);
+				setState(70); stat_block();
 				}
 				break;
 			}
@@ -451,8 +460,8 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(70); expr(0);
-			setState(71); stat_block();
+			setState(73); expr(0);
+			setState(74); stat_block();
 			}
 		}
 		catch (RecognitionException re) {
@@ -498,14 +507,14 @@ public class MarioLangParser extends Parser {
 		Stat_blockContext _localctx = new Stat_blockContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_stat_block);
 		try {
-			setState(78);
+			setState(81);
 			switch (_input.LA(1)) {
 			case OBRACE:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(73); match(OBRACE);
-				setState(74); block();
-				setState(75); match(CBRACE);
+				setState(76); match(OBRACE);
+				setState(77); block();
+				setState(78); match(CBRACE);
 				}
 				break;
 			case IF:
@@ -515,11 +524,12 @@ public class MarioLangParser extends Parser {
 			case JUMP:
 			case GO_RIGHT:
 			case GO_LEFT:
+			case FIRE:
 			case ID:
 			case OTHER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(77); stat();
+				setState(80); stat();
 				}
 				break;
 			default:
@@ -570,9 +580,9 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80); match(WHILE);
-			setState(81); expr(0);
-			setState(82); stat_block();
+			setState(83); match(WHILE);
+			setState(84); expr(0);
+			setState(85); stat_block();
 			}
 		}
 		catch (RecognitionException re) {
@@ -617,9 +627,9 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(84); match(LOG);
-			setState(85); expr(0);
-			setState(86); match(SCOL);
+			setState(87); match(LOG);
+			setState(88); expr(0);
+			setState(89); match(SCOL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -664,9 +674,9 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(88); match(SLEEP);
-			setState(89); expr(0);
-			setState(90); match(SCOL);
+			setState(91); match(SLEEP);
+			setState(92); expr(0);
+			setState(93); match(SCOL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -708,8 +718,8 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(92); match(JUMP);
-			setState(93); match(SCOL);
+			setState(95); match(JUMP);
+			setState(96); match(SCOL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -754,9 +764,9 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(95); match(GO_LEFT);
-			setState(96); expr(0);
-			setState(97); match(SCOL);
+			setState(98); match(GO_LEFT);
+			setState(99); expr(0);
+			setState(100); match(SCOL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -801,9 +811,52 @@ public class MarioLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(99); match(GO_RIGHT);
-			setState(100); expr(0);
-			setState(101); match(SCOL);
+			setState(102); match(GO_RIGHT);
+			setState(103); expr(0);
+			setState(104); match(SCOL);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class FireContext extends ParserRuleContext {
+		public TerminalNode SCOL() { return getToken(MarioLangParser.SCOL, 0); }
+		public TerminalNode FIRE() { return getToken(MarioLangParser.FIRE, 0); }
+		public FireContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_fire; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MarioLangListener ) ((MarioLangListener)listener).enterFire(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MarioLangListener ) ((MarioLangListener)listener).exitFire(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MarioLangVisitor ) return ((MarioLangVisitor<? extends T>)visitor).visitFire(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final FireContext fire() throws RecognitionException {
+		FireContext _localctx = new FireContext(_ctx, getState());
+		enterRule(_localctx, 26, RULE_fire);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(106); match(FIRE);
+			setState(107); match(SCOL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1069,14 +1122,14 @@ public class MarioLangParser extends Parser {
 		int _parentState = getState();
 		ExprContext _localctx = new ExprContext(_ctx, _parentState);
 		ExprContext _prevctx = _localctx;
-		int _startState = 26;
-		enterRecursionRule(_localctx, 26, RULE_expr, _p);
+		int _startState = 28;
+		enterRecursionRule(_localctx, 28, RULE_expr, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(109);
+			setState(115);
 			switch (_input.LA(1)) {
 			case MINUS:
 				{
@@ -1084,8 +1137,8 @@ public class MarioLangParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(104); match(MINUS);
-				setState(105); expr(9);
+				setState(110); match(MINUS);
+				setState(111); expr(9);
 				}
 				break;
 			case NOT:
@@ -1093,8 +1146,8 @@ public class MarioLangParser extends Parser {
 				_localctx = new NotExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(106); match(NOT);
-				setState(107); expr(8);
+				setState(112); match(NOT);
+				setState(113); expr(8);
 				}
 				break;
 			case OPAR:
@@ -1109,14 +1162,14 @@ public class MarioLangParser extends Parser {
 				_localctx = new AtomExprContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(108); atom();
+				setState(114); atom();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(134);
+			setState(140);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -1124,16 +1177,16 @@ public class MarioLangParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(132);
+					setState(138);
 					switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 					case 1:
 						{
 						_localctx = new PowExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(111);
+						setState(117);
 						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(112); match(POW);
-						setState(113); expr(11);
+						setState(118); match(POW);
+						setState(119); expr(11);
 						}
 						break;
 
@@ -1141,16 +1194,16 @@ public class MarioLangParser extends Parser {
 						{
 						_localctx = new MultiplicationExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(114);
+						setState(120);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(115);
+						setState(121);
 						((MultiplicationExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MULT) | (1L << DIV) | (1L << MOD))) != 0)) ) {
 							((MultiplicationExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(116); expr(8);
+						setState(122); expr(8);
 						}
 						break;
 
@@ -1158,16 +1211,16 @@ public class MarioLangParser extends Parser {
 						{
 						_localctx = new AdditiveExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(117);
+						setState(123);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(118);
+						setState(124);
 						((AdditiveExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==PLUS || _la==MINUS) ) {
 							((AdditiveExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(119); expr(7);
+						setState(125); expr(7);
 						}
 						break;
 
@@ -1175,16 +1228,16 @@ public class MarioLangParser extends Parser {
 						{
 						_localctx = new RelationalExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(120);
+						setState(126);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(121);
+						setState(127);
 						((RelationalExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << GT) | (1L << LT) | (1L << GTEQ) | (1L << LTEQ))) != 0)) ) {
 							((RelationalExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(122); expr(6);
+						setState(128); expr(6);
 						}
 						break;
 
@@ -1192,16 +1245,16 @@ public class MarioLangParser extends Parser {
 						{
 						_localctx = new EqualityExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(123);
+						setState(129);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(124);
+						setState(130);
 						((EqualityExprContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==EQ || _la==NEQ) ) {
 							((EqualityExprContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						consume();
-						setState(125); expr(5);
+						setState(131); expr(5);
 						}
 						break;
 
@@ -1209,10 +1262,10 @@ public class MarioLangParser extends Parser {
 						{
 						_localctx = new AndExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(126);
+						setState(132);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(127); match(AND);
-						setState(128); expr(4);
+						setState(133); match(AND);
+						setState(134); expr(4);
 						}
 						break;
 
@@ -1220,16 +1273,16 @@ public class MarioLangParser extends Parser {
 						{
 						_localctx = new OrExprContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(129);
+						setState(135);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(130); match(OR);
-						setState(131); expr(3);
+						setState(136); match(OR);
+						setState(137); expr(3);
 						}
 						break;
 					}
 					} 
 				}
-				setState(136);
+				setState(142);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			}
@@ -1368,18 +1421,18 @@ public class MarioLangParser extends Parser {
 
 	public final AtomContext atom() throws RecognitionException {
 		AtomContext _localctx = new AtomContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_atom);
+		enterRule(_localctx, 30, RULE_atom);
 		int _la;
 		try {
-			setState(146);
+			setState(152);
 			switch (_input.LA(1)) {
 			case OPAR:
 				_localctx = new ParExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(137); match(OPAR);
-				setState(138); expr(0);
-				setState(139); match(CPAR);
+				setState(143); match(OPAR);
+				setState(144); expr(0);
+				setState(145); match(CPAR);
 				}
 				break;
 			case INT:
@@ -1387,7 +1440,7 @@ public class MarioLangParser extends Parser {
 				_localctx = new NumberAtomContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(141);
+				setState(147);
 				_la = _input.LA(1);
 				if ( !(_la==INT || _la==FLOAT) ) {
 				_errHandler.recoverInline(this);
@@ -1400,7 +1453,7 @@ public class MarioLangParser extends Parser {
 				_localctx = new BooleanAtomContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(142);
+				setState(148);
 				_la = _input.LA(1);
 				if ( !(_la==TRUE || _la==FALSE) ) {
 				_errHandler.recoverInline(this);
@@ -1412,21 +1465,21 @@ public class MarioLangParser extends Parser {
 				_localctx = new IdAtomContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(143); match(ID);
+				setState(149); match(ID);
 				}
 				break;
 			case STRING:
 				_localctx = new StringAtomContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(144); match(STRING);
+				setState(150); match(STRING);
 				}
 				break;
 			case NIL:
 				_localctx = new NilAtomContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(145); match(NIL);
+				setState(151); match(NIL);
 				}
 				break;
 			default:
@@ -1446,7 +1499,7 @@ public class MarioLangParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 13: return expr_sempred((ExprContext)_localctx, predIndex);
+		case 14: return expr_sempred((ExprContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -1470,49 +1523,52 @@ public class MarioLangParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3)\u0097\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3*\u009d\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
-		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\3\2\3\2\3\2\3\3\7\3"+
-		"%\n\3\f\3\16\3(\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\64\n"+
-		"\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\7\6@\n\6\f\6\16\6C\13\6\3\6"+
-		"\3\6\5\6G\n\6\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\5\bQ\n\b\3\t\3\t\3\t\3\t"+
-		"\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\16"+
-		"\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\17\5\17p\n\17\3\17\3\17\3\17"+
-		"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17\3\17"+
-		"\3\17\3\17\3\17\3\17\7\17\u0087\n\17\f\17\16\17\u008a\13\17\3\20\3\20"+
-		"\3\20\3\20\3\20\3\20\3\20\3\20\3\20\5\20\u0095\n\20\3\20\2\3\34\21\2\4"+
-		"\6\b\n\f\16\20\22\24\26\30\32\34\36\2\b\3\2\r\17\3\2\13\f\3\2\7\n\3\2"+
-		"\5\6\3\2$%\3\2\30\31\u00a1\2 \3\2\2\2\4&\3\2\2\2\6\63\3\2\2\2\b\65\3\2"+
-		"\2\2\n:\3\2\2\2\fH\3\2\2\2\16P\3\2\2\2\20R\3\2\2\2\22V\3\2\2\2\24Z\3\2"+
-		"\2\2\26^\3\2\2\2\30a\3\2\2\2\32e\3\2\2\2\34o\3\2\2\2\36\u0094\3\2\2\2"+
-		" !\5\4\3\2!\"\7\2\2\3\"\3\3\2\2\2#%\5\6\4\2$#\3\2\2\2%(\3\2\2\2&$\3\2"+
-		"\2\2&\'\3\2\2\2\'\5\3\2\2\2(&\3\2\2\2)\64\5\b\5\2*\64\5\n\6\2+\64\5\20"+
-		"\t\2,\64\5\22\n\2-\64\5\24\13\2.\64\5\26\f\2/\64\5\30\r\2\60\64\5\32\16"+
-		"\2\61\62\7)\2\2\62\64\b\4\1\2\63)\3\2\2\2\63*\3\2\2\2\63+\3\2\2\2\63,"+
-		"\3\2\2\2\63-\3\2\2\2\63.\3\2\2\2\63/\3\2\2\2\63\60\3\2\2\2\63\61\3\2\2"+
-		"\2\64\7\3\2\2\2\65\66\7#\2\2\66\67\7\23\2\2\678\5\34\17\289\7\22\2\29"+
-		"\t\3\2\2\2:;\7\33\2\2;A\5\f\7\2<=\7\34\2\2=>\7\33\2\2>@\5\f\7\2?<\3\2"+
-		"\2\2@C\3\2\2\2A?\3\2\2\2AB\3\2\2\2BF\3\2\2\2CA\3\2\2\2DE\7\34\2\2EG\5"+
-		"\16\b\2FD\3\2\2\2FG\3\2\2\2G\13\3\2\2\2HI\5\34\17\2IJ\5\16\b\2J\r\3\2"+
-		"\2\2KL\7\26\2\2LM\5\4\3\2MN\7\27\2\2NQ\3\2\2\2OQ\5\6\4\2PK\3\2\2\2PO\3"+
-		"\2\2\2Q\17\3\2\2\2RS\7\35\2\2ST\5\34\17\2TU\5\16\b\2U\21\3\2\2\2VW\7\36"+
-		"\2\2WX\5\34\17\2XY\7\22\2\2Y\23\3\2\2\2Z[\7\37\2\2[\\\5\34\17\2\\]\7\22"+
-		"\2\2]\25\3\2\2\2^_\7 \2\2_`\7\22\2\2`\27\3\2\2\2ab\7\"\2\2bc\5\34\17\2"+
-		"cd\7\22\2\2d\31\3\2\2\2ef\7!\2\2fg\5\34\17\2gh\7\22\2\2h\33\3\2\2\2ij"+
-		"\b\17\1\2jk\7\f\2\2kp\5\34\17\13lm\7\21\2\2mp\5\34\17\nnp\5\36\20\2oi"+
-		"\3\2\2\2ol\3\2\2\2on\3\2\2\2p\u0088\3\2\2\2qr\f\f\2\2rs\7\20\2\2s\u0087"+
-		"\5\34\17\rtu\f\t\2\2uv\t\2\2\2v\u0087\5\34\17\nwx\f\b\2\2xy\t\3\2\2y\u0087"+
-		"\5\34\17\tz{\f\7\2\2{|\t\4\2\2|\u0087\5\34\17\b}~\f\6\2\2~\177\t\5\2\2"+
-		"\177\u0087\5\34\17\7\u0080\u0081\f\5\2\2\u0081\u0082\7\4\2\2\u0082\u0087"+
-		"\5\34\17\6\u0083\u0084\f\4\2\2\u0084\u0085\7\3\2\2\u0085\u0087\5\34\17"+
-		"\5\u0086q\3\2\2\2\u0086t\3\2\2\2\u0086w\3\2\2\2\u0086z\3\2\2\2\u0086}"+
-		"\3\2\2\2\u0086\u0080\3\2\2\2\u0086\u0083\3\2\2\2\u0087\u008a\3\2\2\2\u0088"+
-		"\u0086\3\2\2\2\u0088\u0089\3\2\2\2\u0089\35\3\2\2\2\u008a\u0088\3\2\2"+
-		"\2\u008b\u008c\7\24\2\2\u008c\u008d\5\34\17\2\u008d\u008e\7\25\2\2\u008e"+
-		"\u0095\3\2\2\2\u008f\u0095\t\6\2\2\u0090\u0095\t\7\2\2\u0091\u0095\7#"+
-		"\2\2\u0092\u0095\7&\2\2\u0093\u0095\7\32\2\2\u0094\u008b\3\2\2\2\u0094"+
-		"\u008f\3\2\2\2\u0094\u0090\3\2\2\2\u0094\u0091\3\2\2\2\u0094\u0092\3\2"+
-		"\2\2\u0094\u0093\3\2\2\2\u0095\37\3\2\2\2\13&\63AFPo\u0086\u0088\u0094";
+		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\3\2\3\2\3"+
+		"\2\3\3\7\3\'\n\3\f\3\16\3*\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
+		"\4\3\4\5\4\67\n\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\7\6C\n\6\f\6"+
+		"\16\6F\13\6\3\6\3\6\5\6J\n\6\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\5\bT\n\b"+
+		"\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\f\3\f\3\f\3\r\3"+
+		"\r\3\r\3\r\3\16\3\16\3\16\3\16\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20"+
+		"\3\20\5\20v\n\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20"+
+		"\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\3\20\7\20\u008d\n\20\f\20"+
+		"\16\20\u0090\13\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\21\5\21\u009b"+
+		"\n\21\3\21\2\3\36\22\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \2\b\3\2\r"+
+		"\17\3\2\13\f\3\2\7\n\3\2\5\6\3\2%&\3\2\30\31\u00a7\2\"\3\2\2\2\4(\3\2"+
+		"\2\2\6\66\3\2\2\2\b8\3\2\2\2\n=\3\2\2\2\fK\3\2\2\2\16S\3\2\2\2\20U\3\2"+
+		"\2\2\22Y\3\2\2\2\24]\3\2\2\2\26a\3\2\2\2\30d\3\2\2\2\32h\3\2\2\2\34l\3"+
+		"\2\2\2\36u\3\2\2\2 \u009a\3\2\2\2\"#\5\4\3\2#$\7\2\2\3$\3\3\2\2\2%\'\5"+
+		"\6\4\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)\5\3\2\2\2*(\3\2\2\2+"+
+		"\67\5\b\5\2,\67\5\n\6\2-\67\5\20\t\2.\67\5\22\n\2/\67\5\24\13\2\60\67"+
+		"\5\26\f\2\61\67\5\30\r\2\62\67\5\32\16\2\63\67\5\34\17\2\64\65\7*\2\2"+
+		"\65\67\b\4\1\2\66+\3\2\2\2\66,\3\2\2\2\66-\3\2\2\2\66.\3\2\2\2\66/\3\2"+
+		"\2\2\66\60\3\2\2\2\66\61\3\2\2\2\66\62\3\2\2\2\66\63\3\2\2\2\66\64\3\2"+
+		"\2\2\67\7\3\2\2\289\7$\2\29:\7\23\2\2:;\5\36\20\2;<\7\22\2\2<\t\3\2\2"+
+		"\2=>\7\33\2\2>D\5\f\7\2?@\7\34\2\2@A\7\33\2\2AC\5\f\7\2B?\3\2\2\2CF\3"+
+		"\2\2\2DB\3\2\2\2DE\3\2\2\2EI\3\2\2\2FD\3\2\2\2GH\7\34\2\2HJ\5\16\b\2I"+
+		"G\3\2\2\2IJ\3\2\2\2J\13\3\2\2\2KL\5\36\20\2LM\5\16\b\2M\r\3\2\2\2NO\7"+
+		"\26\2\2OP\5\4\3\2PQ\7\27\2\2QT\3\2\2\2RT\5\6\4\2SN\3\2\2\2SR\3\2\2\2T"+
+		"\17\3\2\2\2UV\7\35\2\2VW\5\36\20\2WX\5\16\b\2X\21\3\2\2\2YZ\7\36\2\2Z"+
+		"[\5\36\20\2[\\\7\22\2\2\\\23\3\2\2\2]^\7\37\2\2^_\5\36\20\2_`\7\22\2\2"+
+		"`\25\3\2\2\2ab\7 \2\2bc\7\22\2\2c\27\3\2\2\2de\7\"\2\2ef\5\36\20\2fg\7"+
+		"\22\2\2g\31\3\2\2\2hi\7!\2\2ij\5\36\20\2jk\7\22\2\2k\33\3\2\2\2lm\7#\2"+
+		"\2mn\7\22\2\2n\35\3\2\2\2op\b\20\1\2pq\7\f\2\2qv\5\36\20\13rs\7\21\2\2"+
+		"sv\5\36\20\ntv\5 \21\2uo\3\2\2\2ur\3\2\2\2ut\3\2\2\2v\u008e\3\2\2\2wx"+
+		"\f\f\2\2xy\7\20\2\2y\u008d\5\36\20\rz{\f\t\2\2{|\t\2\2\2|\u008d\5\36\20"+
+		"\n}~\f\b\2\2~\177\t\3\2\2\177\u008d\5\36\20\t\u0080\u0081\f\7\2\2\u0081"+
+		"\u0082\t\4\2\2\u0082\u008d\5\36\20\b\u0083\u0084\f\6\2\2\u0084\u0085\t"+
+		"\5\2\2\u0085\u008d\5\36\20\7\u0086\u0087\f\5\2\2\u0087\u0088\7\4\2\2\u0088"+
+		"\u008d\5\36\20\6\u0089\u008a\f\4\2\2\u008a\u008b\7\3\2\2\u008b\u008d\5"+
+		"\36\20\5\u008cw\3\2\2\2\u008cz\3\2\2\2\u008c}\3\2\2\2\u008c\u0080\3\2"+
+		"\2\2\u008c\u0083\3\2\2\2\u008c\u0086\3\2\2\2\u008c\u0089\3\2\2\2\u008d"+
+		"\u0090\3\2\2\2\u008e\u008c\3\2\2\2\u008e\u008f\3\2\2\2\u008f\37\3\2\2"+
+		"\2\u0090\u008e\3\2\2\2\u0091\u0092\7\24\2\2\u0092\u0093\5\36\20\2\u0093"+
+		"\u0094\7\25\2\2\u0094\u009b\3\2\2\2\u0095\u009b\t\6\2\2\u0096\u009b\t"+
+		"\7\2\2\u0097\u009b\7$\2\2\u0098\u009b\7\'\2\2\u0099\u009b\7\32\2\2\u009a"+
+		"\u0091\3\2\2\2\u009a\u0095\3\2\2\2\u009a\u0096\3\2\2\2\u009a\u0097\3\2"+
+		"\2\2\u009a\u0098\3\2\2\2\u009a\u0099\3\2\2\2\u009b!\3\2\2\2\13(\66DIS"+
+		"u\u008c\u008e\u009a";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

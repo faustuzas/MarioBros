@@ -114,6 +114,14 @@ public class MarioLangBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFire(@NotNull MarioLangParser.FireContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitBlock(@NotNull MarioLangParser.BlockContext ctx) { return visitChildren(ctx); }
 
 	/**

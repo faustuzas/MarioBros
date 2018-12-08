@@ -8,15 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlayerEventDispatcher {
-    private static PlayerEventDispatcher INSTANCE = new PlayerEventDispatcher();
-    public static PlayerEventDispatcher getInstance() {
+public class EventDispatcher {
+    private static EventDispatcher INSTANCE = new EventDispatcher();
+    public static EventDispatcher getInstance() {
         return INSTANCE;
     }
 
     private Map<Class<? extends Event>, List<Handler<? extends Event>>> handlersByType;
 
-    private PlayerEventDispatcher() {
+    private EventDispatcher() {
         this.handlersByType = new HashMap<>();
     }
 

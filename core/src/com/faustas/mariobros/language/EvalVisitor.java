@@ -1,11 +1,12 @@
 package com.faustas.mariobros.language;
 
+import com.faustas.mariobros.events.PlayerFireEvent;
 import com.faustas.mariobros.events.PlayerGoLeftEvent;
 import com.faustas.mariobros.events.PlayerGoRightEvent;
 import com.faustas.mariobros.events.PlayerJumpEvent;
 import com.faustas.mariobros.generated.MarioLangBaseVisitor;
 import com.faustas.mariobros.generated.MarioLangParser;
-import com.faustas.mariobros.tools.PlayerEventDispatcher;
+import com.faustas.mariobros.tools.EventDispatcher;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.HashMap;
@@ -14,15 +15,13 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 public class EvalVisitor extends MarioLangBaseVisitor<Value> {
-    private final PlayerEventDispatcher eventDispatcher = PlayerEventDispatcher.getInstance();
+    private final EventDispatcher eventDispatcher = EventDispatcher.getInstance();
 
     // used to compare floating point numbers
     private static final double SMALL_VALUE = 0.00000000001;
 
-    // store variables (there's only one global scope!)
     private Map<String, Value> memory = new HashMap<>();
 
-    // assignment/id overrides
     @Override
     public Value visitAssignment(MarioLangParser.AssignmentContext ctx) {
         String id = ctx.ID().getText();
@@ -40,11 +39,10 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
         return value;
     }
 
-    // atom overrides
     @Override
     public Value visitStringAtom(MarioLangParser.StringAtomContext ctx) {
         String str = ctx.getText();
-        // strip quotes
+
         str = str.substring(1, str.length() - 1).replace("\"\"", "\"");
         return new Value(str);
     }
@@ -64,7 +62,6 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
         return new Value(null);
     }
 
-    // expr overrides
     @Override
     public Value visitParExpr(MarioLangParser.ParExprContext ctx) {
         return this.visit(ctx.expr());
@@ -91,7 +88,6 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
 
     @Override
     public Value visitMultiplicationExpr(@NotNull MarioLangParser.MultiplicationExprContext ctx) {
-
         Value left = this.visit(ctx.expr(0));
         Value right = this.visit(ctx.expr(1));
 
@@ -109,7 +105,6 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
 
     @Override
     public Value visitAdditiveExpr(@NotNull MarioLangParser.AdditiveExprContext ctx) {
-
         Value left = this.visit(ctx.expr(0));
         Value right = this.visit(ctx.expr(1));
 
@@ -127,7 +122,6 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
 
     @Override
     public Value visitRelationalExpr(@NotNull MarioLangParser.RelationalExprContext ctx) {
-
         Value left = this.visit(ctx.expr(0));
         Value right = this.visit(ctx.expr(1));
 
@@ -147,7 +141,6 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
 
     @Override
     public Value visitEqualityExpr(@NotNull MarioLangParser.EqualityExprContext ctx) {
-
         Value left = this.visit(ctx.expr(0));
         Value right = this.visit(ctx.expr(1));
 
@@ -179,7 +172,6 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
         return new Value(left.asBoolean() || right.asBoolean());
     }
 
-    // log override
     @Override
     public Value visitLog(MarioLangParser.LogContext ctx) {
         Value value = this.visit(ctx.expr());
@@ -224,21 +216,23 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
         return Value.VOID;
     }
 
-    // if override
+    @Override
+    public Value visitFire(MarioLangParser.FireContext ctx) {
+        eventDispatcher.dispatch(new PlayerFireEvent());
+        return Value.VOID;
+    }
+
     @Override
     public Value visitIf_stat(MarioLangParser.If_statContext ctx) {
-
         List<MarioLangParser.Condition_blockContext> conditions =  ctx.condition_block();
-
         boolean evaluatedBlock = false;
 
         for(MarioLangParser.Condition_blockContext condition : conditions) {
-
             Value evaluated = this.visit(condition.expr());
 
             if(evaluated.asBoolean()) {
                 evaluatedBlock = true;
-                // evaluate this block whose expr==true
+
                 this.visit(condition.stat_block());
                 break;
             }
@@ -252,18 +246,13 @@ public class EvalVisitor extends MarioLangBaseVisitor<Value> {
         return Value.VOID;
     }
 
-    // while override
     @Override
     public Value visitWhile_stat(MarioLangParser.While_statContext ctx) {
-
         Value value = this.visit(ctx.expr());
 
         while(value.asBoolean()) {
-
-            // evaluate the code block
             this.visit(ctx.stat_block());
 
-            // evaluate the expression
             value = this.visit(ctx.expr());
         }
 

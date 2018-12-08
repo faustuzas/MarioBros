@@ -103,7 +103,7 @@ public class Mario extends Sprite {
         setBounds(0, 0, 16 / Config.PPM, 16 / Config.PPM);
         setRegion(marioStand);
 
-        fireballs = new Array<FireBall>();
+        fireballs = new Array<>();
     }
 
     public void update(float dt) {
@@ -131,7 +131,6 @@ public class Mario extends Sprite {
             if (ball.isDestroyed())
                 fireballs.removeValue(ball, true);
         }
-
     }
 
     TextureRegion getFrame(float dt) {

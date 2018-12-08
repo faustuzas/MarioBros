@@ -74,6 +74,17 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((FireBall)fixB.getUserData()).setToDestroy();
                 break;
+            case Bits.ENEMY_HEAD_BIT | Bits.FIREBALL_BIT:
+            case Bits.ENEMY_BIT | Bits.FIREBALL_BIT:
+                if (fixA.getFilterData().categoryBits == Bits.FIREBALL_BIT) {
+                    ((FireBall)fixA.getUserData()).setToDestroy();
+                    ((Enemy)fixB.getUserData()).hitByFireball();
+                }
+                else {
+                    ((Enemy)fixA.getUserData()).hitByFireball();
+                    ((FireBall)fixB.getUserData()).setToDestroy();
+                }
+                break;
         }
     }
 

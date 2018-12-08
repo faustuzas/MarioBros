@@ -153,6 +153,17 @@ public interface MarioLangListener extends ParseTreeListener {
 	void exitWhile_stat(@NotNull MarioLangParser.While_statContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link MarioLangParser#fire}.
+	 * @param ctx the parse tree
+	 */
+	void enterFire(@NotNull MarioLangParser.FireContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MarioLangParser#fire}.
+	 * @param ctx the parse tree
+	 */
+	void exitFire(@NotNull MarioLangParser.FireContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link MarioLangParser#block}.
 	 * @param ctx the parse tree
 	 */
