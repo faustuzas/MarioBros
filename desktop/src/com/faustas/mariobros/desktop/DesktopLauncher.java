@@ -15,24 +15,19 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class DesktopLauncher extends Application {
-
-    private static Thread gameThread;
-
     private EventDispatcher eventDispatcher = EventDispatcher.getInstance();
 
 	public static void main (String[] args) {
-	    gameThread = new Thread(() -> {
-            LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-            config.width = 1200;
-            config.height = 624;
-            new LwjglApplication(new MarioBros(), config);
-        });
-	    gameThread.start();
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 1200;
+        config.height = 624;
+        new LwjglApplication(new MarioBros(), config);
 
-        launch(args);
+        Thread editorThread = new Thread(() -> launch(args));
+        editorThread.start();
 
         try {
-            gameThread.join();
+            editorThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
